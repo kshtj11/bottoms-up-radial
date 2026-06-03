@@ -80,7 +80,7 @@
     align-items: center;
     align-self: flex-start;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 80px;
     overflow: visible;
     will-change: transform;
   }
@@ -103,7 +103,7 @@
     transform: translateX(-50%);
     width: 96px;
     height: 48px;
-    z-index: 40;
+    z-index: 50;
     transition: opacity 0.2s ease;
     pointer-events: auto;
     cursor: grab;
@@ -122,7 +122,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 0;
-    z-index: 40;
+    z-index: 45;
     pointer-events: none;
   }
 
@@ -460,7 +460,7 @@ dotIndicator.addEventListener('pointerdown', (e) => {
       hideRadial(true);
       goHome();
     } else if (recentsShown && dy > 60) {
-      hideRadial(true);
+      // Keep radial visible in recents view
       dotIndicator.classList.remove('hidden');
       state = 'recents';
     } else if (!wasAppOpen && peakDy < 10 && runningApps.length > 0) {
@@ -499,12 +499,14 @@ function showRecents() {
   recentsCardIndex = Math.max(0, runningApps.length - 1);
   setCardsTransform(getCardOffset(recentsCardIndex), false);
   recentsOverlay.classList.add('visible');
+  showRadial();
   dotIndicator.classList.remove('hidden');
   appScreen.classList.remove('open');
 }
 
 function hideRecents() {
   recentsOverlay.classList.remove('visible');
+  hideRadial(true);
   dotIndicator.classList.remove('hidden');
   state = 'idle';
 }
